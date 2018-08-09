@@ -9,8 +9,10 @@ public Transform limizq;
 	float limizf;
 	float limiderf;
 	float random;
+	float randomy;
 	// Use this for initialization
 	void Start () {
+		globalvariables.velocidad=0.02f;
 		limizf=limizq.position.x;
 		limiderf=limder.position.x;
 		globalvariables.puntos=0;
@@ -18,19 +20,24 @@ public Transform limizq;
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate(0,0.01f,0);
+
+		if(globalvariables.velocidad>0.03f){globalvariables.velocidad=0.012f;}
+
+		transform.Translate(0,globalvariables.velocidad,0);
 	
-		
+		if(transform.position.y<-26f)
+		{transform.position=new Vector3(transform.position.x,-23f,transform.position.z);}
 	}
 	void OnTriggerEnter(Collider other){
 
 		random=Random.Range(limizf,limiderf);
-			
+			randomy=Random.Range(-20f,-25f);
 			
 		if(other.tag=="techo"){
-			transform.position=new Vector3(random,-7.2f,transform.position.z);
-			globalvariables.puntos++;
-			puntosText.text=""+globalvariables.puntos;
+			transform.position=new Vector3(random,randomy,transform.position.z);
+		
+			globalvariables.velocidad+=0.001f;
+			puntosText.text=""+globalvariables.puntos+"vel:"+globalvariables.velocidad;
 		}
 	}
 }

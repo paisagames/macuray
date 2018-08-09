@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class moveball : MonoBehaviour {
 	bool izqb;
@@ -18,11 +19,11 @@ public class moveball : MonoBehaviour {
 	void Update () {
 		if(izqb==true){
 				transform.Translate(-0.1f,0,0);
-		bolaobj.Rotate(0,0,2f);
+		bolaobj.Rotate(0,0,4f);
 		}
 		if(derb==true){
 			transform.Translate(0.1f,0,0);
-		bolaobj.Rotate(0,0,-2f);
+		bolaobj.Rotate(0,0,-4f);
 		}
 		if(transform.position.x<-3.6f){
 			transform.position=new Vector3(3.6f,transform.position.y,transform.position.z);
@@ -32,6 +33,16 @@ public class moveball : MonoBehaviour {
 			transform.position=new Vector3(-3.6f,transform.position.y,transform.position.z);
 		}
 		
+	}
+	void OnTriggerEnter(Collider other){
+		if(other.tag=="loose"){
+			SceneManager.LoadScene("gameover");
+		
+
+		}
+		if(other.tag=="macuray"){
+			globalvariables.puntos++;
+		}
 	}
 	public void left(){
 	izqb=true;
